@@ -1,0 +1,12 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<partial name="Header" />
+<body class="bg-light">
+    <div class="container-fluid bg-light">
+        @RenderBody()
+    </div>
+    <partial name="Script" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

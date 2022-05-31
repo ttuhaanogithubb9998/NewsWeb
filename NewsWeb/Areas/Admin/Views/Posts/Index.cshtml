@@ -1,0 +1,80 @@
+﻿@model IEnumerable<NewsWeb.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-primary text-center">Posts</h1>
+<div class="p-2 d-flex flex-row">
+    <a class="rounded p-2 m-2 border border-dark bg-secondary text-white" asp-action="index">All</a>
+    <a class="rounded p-2 m-2 border border-dark" asp-action="Latest">Top 10 bài viết mới nhất</a>
+    <a class="rounded p-2 m-2 border border-dark " asp-action="ManyViews">Top 10 bài viết có nhiều lượt xem nhất</a>
+    <a class="rounded p-2 m-2 border border-dark" asp-action="ManyComments">Top 10 bài viết có nhiều commetn nhất</a>
+</div>
+
+<p class="mb-3">
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imgage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.View)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostCategory.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a href="~/image/post/@item.Imgage" target="_blank"><img class="w-100" src="~/image/post/@item.Imgage" /></a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.View)
+                </td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <a class="p-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="p-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="p-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

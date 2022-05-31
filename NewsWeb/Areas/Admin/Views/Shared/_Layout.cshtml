@@ -1,0 +1,38 @@
+﻿@{
+    string[] listController = { "Accounts", "Comments", "Posts", "PostCategories" };
+    string navbar = ViewBag.Navbar;
+}
+<!DOCTYPE html>
+<html lang="en">
+<partial name="Header" />
+<body>
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-2 bg-success">
+                <div class="sticky-top pt-5 pb-5">
+                    <div class="list-group">
+                        @{
+                            foreach (var controller in listController)
+                            {
+                                string cl = "";
+                                string txt = "";
+                                if (navbar == controller) { cl = "bg-info"; txt = "text-white"; }
+                                <a class="list-group-item @cl @txt " asp-controller="@controller" asp-action="index">
+                                    <div class="">@controller</div>
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-10 bg-dark">
+                <div class="bg-white p-2 pt-5">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="Script" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

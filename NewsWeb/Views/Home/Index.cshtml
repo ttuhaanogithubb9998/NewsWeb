@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Post>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="posts-content">
+    <ul class="list-group list-group-flush">
+        @{
+            foreach (var p in Model)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-8">
+                            <a class="h3" asp-controller="Posts" asp-action="Details" asp-route-id=@p.Id>@p.Title</a>
+                        </div>
+                        <div class="col-4">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id=@p.Id>
+                                <img src="~/image/post/@p.Imgage" alt="@p.Title" />
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+
+
+

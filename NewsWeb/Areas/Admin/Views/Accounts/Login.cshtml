@@ -1,0 +1,27 @@
+﻿@model Account
+@{
+    Layout = "_Login";
+}
+
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+
+<div class="login-admin">
+    <div class="login-img"><img src="~/image/logo/favicon.png" /></div>
+    <form asp-action="Login" asp-area="Admin" asp-controller="Accounts">
+        <div class="form-group">
+            <label asp-for="UserName"></label>
+            <input asp-for="UserName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Đăng nhập</button>
+        <span class="text-danger">@ViewBag.Msg</span>
+    </form>
+
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<NewsWeb.Models.Comment>
+
+
+
+
+<div class="user">
+    <div class="row">
+        <div class="col-xl-3 text-center">
+            <div class="top-left">
+                <div class="img">
+                    <img class="w-100" src="~/image/avatar/@ViewBag.account.Avatar" alt="">
+                </div>
+            </div>
+            <div class="navbar-sub-user">
+                <ul class="list-group">
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="Comments">hoạt động bình luận</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="SavedPosts">tin đã lưu</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="index">Tài khoản của tôi</a></li>
+                </ul>
+            </div>
+            <div class="logout mt-5">
+                <a asp-controller="Accounts" asp-action="Logout" class="btn btn-danger">Đăng xuất</a>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <h1 class="text-center">Hoạt động bình luận</h1>
+            @{
+                if (Model == null)
+                { <p>bạn chưa có bình luận nào</p> }
+            }
+            <ul class="list-group list-group-flush">
+                @{
+                    foreach (var c in Model)
+                    {
+                        <li class="list-group-item">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id=@c.PostId>@c.Description</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>

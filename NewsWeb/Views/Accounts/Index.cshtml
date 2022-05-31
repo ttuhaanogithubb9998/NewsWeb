@@ -1,0 +1,76 @@
+﻿@model NewsWeb.Models.Account
+
+
+<div class="user">
+    <div class="row">
+        <div class="col-xl-3 text-center">
+            <div class="top-left">
+                <div class="img">
+                    <img src="~/image/avatar/@Model.Avatar" alt="" class="w-100">
+                </div>
+            </div>
+            <div class="navbar-sub-user">
+                <ul class="list-group">
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="Comments">Hoạt động bình luận</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="SavedPosts">Tin đã lưu</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="index">Tài khoản của tôi</a></li>
+                </ul>
+            </div>
+            <div class="logout mt-5">
+                <a asp-controller="Accounts" asp-action="Logout" class="btn btn-danger">Đăng xuất</a>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <h1 class="text-center">Tài khoản của tôi</h1>
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input type="hidden" asp-for="UserName" class="form-control" />
+                    <p>@Model.UserName</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input value="@Model.Password" asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AvatarFile" class="control-label"></label>
+                    <input asp-for="AvatarFile" class="form-control" />
+                    <span asp-validation-for="Avatar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input type="hidden" asp-for="Email" class="form-control" />
+                    <p>@Model.Email</p>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <p>@Model.Phone</p>
+                    <input type="hidden" asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group ">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <p class="text-danger">@ViewBag.Msg</p>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,80 @@
+﻿@{
+    List<PostCategory> postCategories = ViewBag.postCategories;
+    Account account = ViewBag.account;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<partial name="Header" />
+<body>
+    <div class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="logo">
+                    <a href="/">
+                        <img src="https://s1.vnecdn.net/vnexpress/restruct/i/v521/v2_2019/pc/graphics/logo.svg" alt="">
+                    </a>
+                </div>
+                <div class="time-now">
+                    <span>@DateTime.Now.ToString("dddd, dd MMMM yyyy")</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="latest rounded"><a asp-controller="Posts" asp-action="PostsLatest">Mới nhất</a></div>
+                <div class="form">
+                    <form asp-controller="Posts" asp-action="Search">
+                        <input type="text" name="str" id="" placeholder="Tìm kiếm">
+                    </form>
+                </div>
+                <div class="user">
+                    @{ if (account == null)
+                        {
+                            <a asp-controller="Accounts" asp-action="Login">Đăng nhập</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Accounts" asp-action="index">
+                                <img src="~/image/avatar/@account.Avatar" /> <span>@account.FullName</span>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <ul class="navbar">
+                @{
+                    foreach (var pc in postCategories)
+                    {
+                        <li class="navbar-item"><a asp-action="PostCategorys" asp-controller="Posts" asp-route-id="@pc.Id">@pc.Name</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <div class="footer">
+        <div class="logo">
+            <a href="/">
+                <img src="https://s1.vnecdn.net/vnexpress/restruct/i/v521/v2_2019/pc/graphics/logo.svg" alt="">
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                <strong>Báo tiếng Việt nhiều người xem nhất</strong><br>Thuộc Bộ Khoa học Công nghệ<br>Số giấy phép: 548/GP-BTTTT ngày 24/08/2021
+            </p>
+            <p>
+                Phó Tổng Biên tập phụ trách: Phạm Hiếu<br>Địa chỉ: Tầng 5, Tòa nhà FPT, 17 phố Duy Tân, Cầu Giấy, Hà Nội<br>Điện thoại: 024 7300 8899 - máy lẻ 4500
+            </p>
+            <p style="text-align: right;">© 1997-2022. Toàn bộ bản quyền thuộc VnExpress</p>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

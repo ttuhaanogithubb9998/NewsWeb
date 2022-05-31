@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NewsWeb.Models.Post>
+
+<div class="user">
+    <div class="row">
+        <div class="col-xl-3 text-center">
+            <div class="top-left">
+                <div class="img">
+                    <img class="w-100" src="~/image/avatar/@ViewBag.account.Avatar" alt="@ViewBag.account.FullName">
+                </div>
+            </div>
+            <div class="navbar-sub-user">
+                <ul class="list-group">
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="Comments">hoạt động bình luận</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="SavedPosts">tin đã lưu</a></li>
+                    <li class="list-group-item"><a asp-controller="Accounts" asp-action="index">Tài khoản của tôi</a></li>
+                </ul>
+            </div>
+            <div class="logout mt-5">
+                <a asp-controller="Accounts" asp-action="Logout" class="btn btn-danger">Đăng xuất</a>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <h1 class="text-center">Tin đã lưu</h1>
+            <ul class="list-group list-group-flush">
+                @{
+                    foreach (var c in Model)
+                    {
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-9">
+                                    <a class="h3" asp-controller="Posts" asp-action="Details" asp-route-id=@c.Id>@c.Title</a>
+                                </div>
+                                <div class="col-3">
+                                    <img src="~/image/post" alt="@c.Title" />
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

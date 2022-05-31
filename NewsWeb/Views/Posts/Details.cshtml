@@ -1,0 +1,93 @@
+﻿@model NewsWeb.Models.Post
+
+
+@{
+    IEnumerable<Comment> listComments = ViewBag.listComments;
+    IEnumerable<Favorite> listFavorites = ViewBag.listFavorites;
+    bool userSaved = ViewBag.userSaved;
+}
+
+<div>
+    <h1 class="post-title">@Model.Title</h1>
+    <p class="post-date">@Model.Date</p>
+    <p class="post-author">Author: @Model.Author</p>
+
+    <img src="~/img/post/@Model.Imgage" />
+
+    <div class="post-contetn">
+        @Model.Content
+    </div>
+    <div class="savePost">
+        <a class="btn btn-primary" asp-controller="Posts" asp-action="SavePost" asp-route-postId="@Model.Id">
+            @{
+                if (userSaved)
+                {
+                    <span>Bỏ lưu</span>
+                }
+                else
+                {
+                    <span>lưu</span>
+                }
+            }
+        </a>
+    </div>
+    <br />
+    Comment:
+    <div class="post-comment">
+        <form asp-controller="Posts" asp-action="Comment">
+            <input name="str" />
+            <input name="postId" value="@Model.Id" type="hidden" />
+        </form>
+    </div>
+
+    <div class="post-listComments">
+        @{
+            string userComment = "";
+
+            foreach (var c in listComments)
+            {
+                int like = 0;
+                int dislike = 0;
+                string userLike = "";
+                string userDislike = "";
+
+                foreach (var f in listFavorites)
+                {
+                    if (f.CommentId == c.Id)
+                    {
+                        if (f.State == true) { like++; } else { dislike++; }
+                        if (ViewBag.account != null)
+                        {
+                            if (f.AccountId == ViewBag.account.Id)
+                            {
+                                if (f.State == true) { userLike = "text-primary"; } else { userDislike = "text-primary"; }
+                            }
+                            if (c.AccountId == ViewBag.account.Id) { userComment = "text-success"; } else { userComment = ""; }
+                        }
+                    }
+                }
+
+
+                <div class="comment-item  pt-2 pl-2 w-75">
+                    <div class="row">
+                        <div class="col-9">
+                            <p class="mr-5 pr-5 @userComment">@c.Description</p>
+                        </div>
+                        <div class="col-3">
+                            <a class="mr-5" asp-controller="Posts" asp-action="Like" asp-route-commentId="@c.Id" asp-route-postId="@Model.Id" asp-route-state="1">
+                                <span class="mr-1">@like</span><span class="@userLike"><i class="fa fa-thumbs-o-up"></i></span>
+                            </a>
+                            <a class="mr-1" asp-controller="Posts" asp-action="Like" asp-route-commentId="@c.Id" asp-route-postId="@Model.Id" asp-route-state="0">
+                                <span class="mr-1">@dislike</span><span class="@userDislike"><i class="fa fa-thumbs-o-down"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<NewsWeb.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-primary text-center">Accounts</h1>
+
+<div class="p-2 d-flex flex-row">
+    <a class="rounded p-2 m-2 border border-dark" asp-action="index">All</a>
+    <a class="rounded p-2 m-2 border border-dark bg-secondary text-white" asp-action="Comments">Top 10 account nhiều comment nhất</a>
+    <a class="rounded p-2 m-2 border border-dark " asp-action="ManyLikes">Top 10 account có nhiều like nhất</a>
+    <a class="rounded p-2 m-2 border border-dark" asp-action="ManyDislikes">Top 10 account có nhiều dislike nhất</a>
+</div>
+
+<p class="mb-3">
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead class="thead-light">
+        <tr class="align-items-center">
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAdmin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>Comment</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAdmin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a href="~/image/avatar/@item.Avatar" target="_blank"><img class="w-100" src="~/image/avatar/@item.Avatar" /></a>
+                </td>
+                <td>
+                    @item.Comments.Count()
+                </td>
+                <td>
+                    <div class="d-flex flex-column">
+                        <a class="p-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="p-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="p-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

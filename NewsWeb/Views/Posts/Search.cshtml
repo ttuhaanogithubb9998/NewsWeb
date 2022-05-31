@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<Post>
+
+<div class="posts-content">
+    <ul class="list-group list-group-flush">
+
+        @{
+            if (Model.Count() == 0)
+            {
+                <li  class="list-group-item h2 text-center" >Không có bài viết nào phù hợp!</li>
+            }
+            foreach (var p in Model)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-8">
+                            <a class="h3" asp-controller="Posts" asp-action="Details" asp-route-id=@p.Id>@p.Title</a>
+                        </div>
+                        <div class="col-4">
+                            <a asp-controller="Posts" asp-action="Details" asp-route-id=@p.Id>
+                                <img src="~/image/post/@p.Imgage" alt="@p.Title" />
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+
